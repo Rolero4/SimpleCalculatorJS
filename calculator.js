@@ -23,10 +23,15 @@ let calculator = {
         let divHtmlText = e.target.innerHTML;
 
         switch (divHtmlText) {
+            case "%":
+                calculator.input.value = calculator.input.value/100;
+                break;
             case "=":
                 calculator.evaluate();
             break;
             case "AC":
+                calculator.first_number= 0;
+                calculator.current_operand= "";
                 calculator.clear();
             break;
             case "+/-":
@@ -58,10 +63,9 @@ let calculator = {
     },
 
     addNumberToDisplay: function(str){
-        if((calculator.input.value < 1000000) && (calculator.input.value > -1000000))
+        let display = calculator.input.value + '';
+        if(display.length < 7 || (display.includes(".") && display.length == 7 && str != 0))
             calculator.input.value += str;
-            
-
     },
 
     changeSign(){
@@ -97,11 +101,16 @@ let calculator = {
 
     evaluate: function(){
         if(this.current_operand != "" || this.current_operand != undefined){
-            let result = eval(this.first_number + this.current_operand+ this.input.value);
-            calculator.input.value = result;
-
+            if(this.current_operand == "/" && this.input.value == 0)
+                calculator.input.value = "error"
+            else{
+                let result = eval(this.first_number + this.current_operand+ this.input.value);
+                let display = calculator.input.value + '';
+                if(display.length > 6 )
+                    calculator.input.value = result.toExponential(2);
+                else
+                    calculator.input.value = result;
+            }
         }
     },
-
-
 }

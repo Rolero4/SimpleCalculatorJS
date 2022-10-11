@@ -56,12 +56,12 @@ body{
  
 
 .number-button{
-    background-color: rgb(136, 138, 141);
+    background-color: rgb(98, 100, 103);
     color: white
 }
 
 .number-button:active{
-    background-color: rgb(160, 164, 168);
+    background-color: rgb(130, 124, 128);
 }
 
 .operation-button{
